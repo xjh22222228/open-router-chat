@@ -13,4 +13,5 @@ pnpm run dev
 
 ```
 NEXT_PUBLIC_API_KEY=key
+NEXT_PUBLIC_MODEL=model
 ```

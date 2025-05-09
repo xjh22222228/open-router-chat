@@ -2,13 +2,20 @@
 import React from "react";
 
 export default function useApi() {
-  const [apiKey, setApiKey] = React.useState<string | null>(null);
+  const [API_KEY, setApiKey] = React.useState<string | null>(null);
+  const [model, setModel] = React.useState<string | null>(null);
 
   React.useEffect(() => {
     setApiKey(
       localStorage.getItem("API_KEY") || process.env.NEXT_PUBLIC_API_KEY || null
     );
+    setModel(
+      localStorage.getItem("model") || process.env.NEXT_PUBLIC_MODEL || null
+    );
   }, []);
 
-  return [apiKey, setApiKey];
+  return {
+    API_KEY,
+    model,
+  };
 }

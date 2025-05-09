@@ -29,7 +29,7 @@ export default function ChatApp() {
   const contentRef = React.useRef<HTMLDivElement>(null);
   const controller = React.useRef<AbortController | null>(null);
   const textareaRef = React.useRef<HTMLTextAreaElement>(null);
-  const [API_KEY] = useApi();
+  const { API_KEY, model } = useApi();
 
   function scrollToBottom() {
     const chatContainer = contentRef.current;
@@ -99,7 +99,7 @@ ${prompts}
         },
         body: JSON.stringify({
           stream: true,
-          model: "mistralai/mistral-7b-instruct:free",
+          model,
           messages: historyChats,
         }),
         signal,
@@ -165,10 +165,12 @@ ${prompts}
     <div className="h-[100vh] flex flex-col w-full lg:w-[1024px] m-auto pb-2">
       {!API_KEY && <Login />}
 
-      <LogoutIcon
-        className="z-10 absolute top-5 right-5 cursor-pointer"
-        onClick={handleSignOut}
-      />
+      {API_KEY && (
+        <LogoutIcon
+          className="z-10 absolute top-5 right-5 cursor-pointer"
+          onClick={handleSignOut}
+        />
+      )}
       <div
         className="flex-1 overflow-hidden overflow-y-auto pb-5 relative"
         ref={contentRef}
