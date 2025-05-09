@@ -20,7 +20,7 @@ interface HistoryChat {
   content: string;
 }
 
-let historyChats: HistoryChat[] = [];
+const historyChats: HistoryChat[] = [];
 
 export default function ChatApp() {
   const [chats, setChats] = React.useState<Chat[]>([]);
