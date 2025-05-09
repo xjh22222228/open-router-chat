@@ -1,0 +1,20 @@
+@keyframes animateScale {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.loading {
+  margin-top: 10px;
+  width: 20px;
+  height: 20px;
+  background: #000;
+  border-radius: 50%;
+  animation: animateScale 1s linear infinite;
+}
