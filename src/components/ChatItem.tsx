@@ -1,3 +1,5 @@
+"use client";
+import React from "react";
 import Avatar from "@mui/material/Avatar";
 import styles from "./styles.module.css";
 
@@ -7,7 +9,7 @@ export interface Chat {
   loading?: boolean;
 }
 
-export default function ChatItem({ own, content, loading }: Chat) {
+function ChatItem({ own, content, loading }: Chat) {
   return (
     <div className="flex w-full mt-10">
       <div className="w-10 h-10 bg-red-500 rounded-full p-2">
@@ -34,3 +36,5 @@ export default function ChatItem({ own, content, loading }: Chat) {
     </div>
   );
 }
+
+export default React.memo(ChatItem);

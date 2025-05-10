@@ -20,19 +20,20 @@ export default function Login() {
       <div>
         <input
           type="text"
-          placeholder="Enter your API Key"
-          value={apiKey}
-          onChange={(e) => setApiKey(e.target.value)}
+          placeholder="Enter your model"
+          value={model}
+          onChange={(e) => setModel(e.target.value)}
           className="border border-gray-300 p-2 mb-4 w-64"
         />
       </div>
       <input
         type="text"
-        placeholder="Enter your model"
-        value={model}
-        onChange={(e) => setModel(e.target.value)}
+        placeholder="Enter your API Key"
+        value={apiKey}
+        onChange={(e) => setApiKey(e.target.value)}
         className="border border-gray-300 p-2 mb-4 w-64"
       />
+
       <button
         onClick={handleLogin}
         className="bg-blue-500 text-white px-4 py-2 rounded cursor-pointer"
