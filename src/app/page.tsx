@@ -10,7 +10,6 @@ import styles from "./style.module.css";
 import AssistantNavigationIcon from "@mui/icons-material/AssistantNavigation";
 import StopCircleIcon from "@mui/icons-material/StopCircle";
 import "@/assets/markdown.css";
-import md from "@/utils/markdown";
 import Login from "@/components/Login";
 import useApi from "@/hooks/useApi";
 import LogoutIcon from "@mui/icons-material/Logout";
@@ -45,8 +44,12 @@ export default function ChatApp() {
     scrollToBottom();
   }, [chats]);
 
-  React.useEffect(() => {
+  function focusTextarea() {
     textareaRef.current?.focus();
+  }
+
+  React.useEffect(() => {
+    focusTextarea();
   }, []);
 
   async function submitChat() {
@@ -88,10 +91,11 @@ ${prompts}
       const chatItem: Chat = {
         content: "",
         own: false,
-        loading: true,
       };
       setChats((prev) => [...prev, chatItem]);
-      const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+      const url = "https://openrouter.ai/api/v1/chat/completions";
+      // const url = "v1/chat/completions";
+      const res = await fetch(url, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${API_KEY}`,
@@ -129,10 +133,8 @@ ${prompts}
                 const content = json.choices[0]?.delta?.content || "";
                 contentChats += content;
                 setChats((prev) => {
-                  const newChats = [...prev];
-                  newChats.at(-1)!.loading = false;
-                  newChats.at(-1)!.content = md.render(contentChats);
-                  return newChats;
+                  prev.at(-1)!.content = contentChats;
+                  return prev;
                 });
               } catch (e) {
                 console.log(e);
@@ -146,6 +148,7 @@ ${prompts}
       console.error("Error:", error);
     } finally {
       setPending(false);
+      focusTextarea();
     }
   }
 
